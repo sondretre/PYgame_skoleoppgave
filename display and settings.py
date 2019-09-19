@@ -8,7 +8,7 @@ SCREEN_HEIGHT = 700
 Gravity = 1
 
 
-#Art assets
+#Art-assets
 
 #Platform        =
 #Player_carakter =
