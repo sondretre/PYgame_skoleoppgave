@@ -3,9 +3,9 @@ import sys
 import pygame
 from pygame.locals import *
 import settings
-import Test_Utility
+import Utility
 # Importerer bare ed classene vi trenger fra sprites filen
-from Test_Sprites import StaticElement, MovingElement, BouncingElement, PlayerElement
+from Sprites import StaticElement, MovingElement, BouncingElement, PlayerElement
 
 # Sentrerer pygame vindu
 os.environ['SDL_VIDEO_CENTERED'] = '1'
