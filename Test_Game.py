@@ -5,7 +5,7 @@ from pygame.locals import *
 import settings
 import Test_Utility
 # Importerer bare ed classene vi trenger fra sprites filen
-from Test_Sprites import StaticElement, MovingElement, BouncingElement
+from Test_Sprites import StaticElement, MovingElement, BouncingElement, PlayerElement
 
 # Sentrerer pygame vindu
 os.environ['SDL_VIDEO_CENTERED'] = '1'
@@ -32,7 +32,7 @@ elements.add(MovingElement(settings.Enemy_2, (0, 0), (2,1)))
 
 #elements.add(MovingElement(settings.ITEM_ENEMY_BLOCK_RED, (0, 0), (2,2)))
 
-elements.add(BouncingElement(settings.Player_carakter, (0, 300), (2,0)))
+elements.add(PlayerElement(settings.Player_carakter, (0, 300), (2,0)))
 
 elements.add(BouncingElement(settings.Enemy_2, (500, 0), (0,2)))
 
@@ -46,6 +46,9 @@ while True:
         if (event.type == QUIT) or ((event.type == KEYDOWN) and (event.key == K_ESCAPE)) or ((event.type == KEYDOWN) and (event.key == K_q)):
             pygame.quit()   
             sys.exit()
+
+        #Når pil venstre trykkes
+        #element_good.sprite.move_left()
 
     surface.fill((255, 255, 255))
     
