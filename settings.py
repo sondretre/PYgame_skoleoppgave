@@ -2,8 +2,10 @@ DEBUG = True
 
 FPS = 60
 
+#Lager nav til filen
 pygame.display.set_caption("The Ture Game")
 
+#definerer swindustørelsen
 SCREEN_WIDTH = 1000
 SCREEN_HEIGHT = 600
 
@@ -12,6 +14,7 @@ Gravity = 1
 
 ASSETS_DIR = 'Game_Art'
 #Art-assets
+#her henter jeg art assets
 
 Platform        = {'filename' : 'Platform.png', 'size' : (237,36)}
 Player_carakter = {'filename' : 'playyer.png' , 'size' : (63,150)}

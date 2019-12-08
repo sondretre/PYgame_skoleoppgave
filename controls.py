@@ -3,6 +3,8 @@ import os
 import sys
 from pygame.locals import *
 
+#her importerer jeg key bindings
+
 while run:
     pygame.time.delay(100)
 
