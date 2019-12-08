@@ -55,7 +55,7 @@ class Player(pygame.sprite.Sprite):
                 self.rect.left = block.rect.right
         
         self.rect.y += self.change_y
-        
+
         block_hit_list = pygame.sprite.spritecollide(self, walls, False)
         for block in block_hit_list:
 
@@ -107,24 +107,24 @@ while not done:
         
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT:
-                player.changespeed(-3.0)
+                player.changespeed(-3,0)
             elif event.key == pygame.K_RIGHT:
-                player.changespeed(3.0)
+                player.changespeed(3,0)
             elif event.key == pygame.K_UP:
-                player.changespeed(0.-3)
+                player.changespeed(0,-3)
             elif event.key == pygame.K_DOWN:
-                player.changespeed(0.3)
+                player.changespeed(0,3)
 
         
         elif event.type == pygame.KEYUP:
             if event.key == pygame.K_LEFT:
-                player.changespeed(3.0)
+                player.changespeed(3,0)
             elif event.key == pygame.K_RIGHT:
-                player.changespeed(-3.0)
+                player.changespeed(-3,0)
             elif event.key == pygame.K_UP:
-                player.changespeed(0.3)
+                player.changespeed(0,3)
             elif event.key == pygame.K_DOWN:
-                player.changespeed(0.-3)
+                player.changespeed(0,-3)
     player.update(wall_list)
 
     screen.fill(black)
