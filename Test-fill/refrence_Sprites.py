@@ -11,7 +11,7 @@ class Element(pygame.sprite.Sprite):
     def __init__(self, graphic):
         pygame.sprite.Sprite.__init__(self)
         filename = os.path.join(settings.ASSETS_DIR, graphic['filename'])
-        self.image = Utility.load_image(filename, graphic['size'])
+        self.image = Test_Utility.load_image(filename, graphic['size'])
         self.rect = self.image.get_rect()
 
     def update(self):
@@ -48,9 +48,9 @@ class BouncingElement(MovingElement):
 
 class PlayerElement(MovingElement):
     def __init__(self, graphic, position, speed):
-        MovingElement.__init__(self, graphic, position, speed)
-        self.dx = speed[1]
-        self.dy = speed[1]
+        MovingElement.__init__(self, graphic, position)
+        self.dx = speed[0]
+        self.dy = speed[0]
     def update(self):
         MovingElement.update(self)
 
@@ -59,4 +59,3 @@ class PlayerElement(MovingElement):
 
     def move_right(pixler):
         self.rect.right -= pixler
-    

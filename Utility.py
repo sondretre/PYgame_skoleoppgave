@@ -1,5 +1,6 @@
 import pygame
-#from pygame.locals import *
+from pygame.locals import *
+import settings
 
 def debug_text(text):
     font = pygame.font.SysFont('', 20)
@@ -10,7 +11,7 @@ def debug_text(text):
 def load_image(filename, size = (100, 100)):
     ''' Returnerer en surface med det skalerte bilde
     '''
-    img = pygame.image.load(filename)
+    img = pygame.image.load('Landskap.png')
     img.convert()
     # Skalerer størrelsen på bilde til det som  passer best innenfor målet
     rect =  img.get_rect().fit(pygame.Rect((0, 0), size))

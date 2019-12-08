@@ -1,3 +1,6 @@
+import pygame
+
+
 DEBUG = True
 
 FPS = 60
