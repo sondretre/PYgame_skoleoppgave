@@ -4,25 +4,25 @@ import random
 import pygame
 import math
 from pygame.locals import *
-import 1.settings
-import 1.Utility
+#import 1.Settings
+#import 1.utility
 
 black = (0,0,0)
 white = (255,255,255)
 blue = (0,0,255)
 
 class Wall(pygame.sprite.Sprite):
-    def __init__(self, x, y, widht, height):
+    def __init__(self, x, y, width, height):
         pygame.sprite.Sprite.__init__(self)
 
-        self.image = pygame.surface([width, height])
-        self.iimage.fill(blue)
+        self.image = pygame.Surface([width, height])
+        self.image.fill(blue)
 
         self.rect = self.image.get_rect()
         self.rect.y = y
         self.rect.x = x
 
-class Player(self.sprite.Sprite):
+class Player(pygame.sprite.Sprite):
 
     change_x = 0
     change_y = 0
@@ -50,11 +50,12 @@ class Player(self.sprite.Sprite):
         for block in block_hit_list:
 
             if self.change_x > 0:
-                self.rect.right = block.rect.right
+                self.rect.right = block.rect.left
             else:
-                self.rect.left = block.rect.left
+                self.rect.left = block.rect.right
         
         self.rect.y += self.change_y
+        
         block_hit_list = pygame.sprite.spritecollide(self, walls, False)
         for block in block_hit_list:
 
@@ -69,7 +70,7 @@ score = 0
 
 pygame.init()
 
-screen 0 pygame.display.set_mode8([800, 600])
+screen = pygame.display.set_mode([800, 600])
 
 pygame.display.set_caption('test')
 
@@ -77,7 +78,7 @@ background = pygame.Surface(screen.get_size())
 
 background.fill(black)
 
-player = player(50, 50)
+player = Player(50, 50)
 all_sprite_list = pygame.sprite.Group()
 all_sprite_list.add(player)
 
@@ -92,7 +93,7 @@ wall_list.add(wall)
 all_sprite_list.add(wall)
 
 wall = Wall(10,200,100,10)
-all_list.add(wall)
+wall_list.add(wall)
 all_sprite_list.add(wall)
 
 clock = pygame.time.Clock()
