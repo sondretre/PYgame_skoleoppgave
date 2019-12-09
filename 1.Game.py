@@ -41,6 +41,7 @@ wall = Wall(10,200,100,10)
 wall_list.add(wall)
 all_sprite_list.add(wall)
 
+
 clock = pygame.time.Clock()
 
 done = False
