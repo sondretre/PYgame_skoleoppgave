@@ -4,7 +4,7 @@ import pygame
 
 black = (0,0,0)
 white = (255,255,255)
-blue = (0,0,255)
+blue = (0,150,0)
 
 class Wall(pygame.sprite.Sprite):
     def __init__(self, x, y, width, height, color):
