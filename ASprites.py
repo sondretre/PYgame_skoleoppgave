@@ -22,36 +22,34 @@ class Player(pygame.sprite.Sprite):
     change_x = 0
     change_y = 0
 
-    def __init__(self, x, y):
+    def __init__(self):
 
         pygame.sprite.Sprite.__init__(self)
         
-
+        width = 40
+        height = 60
         self.image = pygame.Surface([15, 15])
         self.image.fill(white)
 
         self.rect = self.image.get_rect()
-        self.rect.y = y
-        self.rect.x = x
+        
+    def update(self):
 
-    def changespeed(self, x, y):
-        self.change_x += x
-        self.change_y += y
-    
-    def move(self, walls):
+        self.calc_grav()
 
-        self.rect.x += self.change_x
+        self.rect.x +=self.change_x
+        pos = self.rect.x
 
-        block_hit_list = pygame.sprite.spritecollide(self, walls, False)
+        block_hit_list = pygame.sprite.spritecollide(self, wall, False)
         for block in block_hit_list:
 
             if self.change_x > 0:
                 self.rect.right = block.rect.left
             else:
                 self.rect.left = block.rect.right
-            
-        self.rect.y += self.change_y
 
+            self.rect.y += self.change_y
+            
         block_hit_list = pygame.sprite.spritecollide(self, walls, False)
         for block in block_hit_list:
 
@@ -59,6 +57,66 @@ class Player(pygame.sprite.Sprite):
                 self.rect.bottom = block.rect.top
             else:
                 self.rect.top = block.rect.bottom
+
+            self.change_y = 0
+
+    def calc_grav(self):
+        if self.change_y == 0:
+            self.change_y = 1
+        else:
+            self.change_y += .35
+
+        if self.rect.y >= SCREEN_HEIGHT - self.rect.height and seld.change_y >= 0:
+            self.rect.y = SCREEN_HEIGHT - self.rect.height
+
+    def jump(self):
+
+        self.rect.y += 2
+        wall_hit_list = pygame.sprite.spritecollide(self, walls, False)
+        self.rect.y -= 2
+
+        if len(wall_hit_list) > 0 or self.rect.bottom >= SCREEN_HEIGHT:
+            self.change_y = -10
+
+    def go_left(self):
+
+        self.change_x = -6
+
+    def go_right(self):
+        
+        self.change_x = 6
+
+    def stop(self):
+        self.change_x = 0
+
+#        self.rect.y = y
+#        self.rect.x = x
+
+#    def changespeed(self, x, y):
+#        self.change_x += x
+#        self.change_y += y
+    
+#    def move(self, walls):
+
+#        self.rect.x += self.change_x
+
+#        block_hit_list = pygame.sprite.spritecollide(self, walls, False)
+#        for block in block_hit_list:
+
+#            if self.change_x > 0:
+#                self.rect.right = block.rect.left
+#            else:
+#                self.rect.left = block.rect.right
+            
+#        self.rect.y += self.change_y
+
+#        block_hit_list = pygame.sprite.spritecollide(self, walls, False)
+#        for block in block_hit_list:
+#
+#            if self.change_y > 0:
+#                self.rect.bottom = block.rect.top
+#            else:
+#                self.rect.top = block.rect.bottom
 
 class Room():
 
@@ -74,30 +132,22 @@ class Room1(Room):
     
     def __init__(self):
         Room.__init__(self)
-        # Liste over vegger: x,y,lengde og høgde
-        walls = [ [1,590,1000,10,blue],
-                  [50,400,200,10,blue],
-                  [600,400,200,10,blue]
+        # Liste over vegger: x,y,lengde, høgde, farge
+        walls = [ [0,690,1000,10,blue],
+                  [50,0,0,0,blue],
+                  [0,0,0,0,blue],
+                  [0,0,0,0,blue],
+                  [0,0,0,10,blue],
+                  [0,0,0,0,blue],
+                  [0,0,0,0,blue],
+                  [0,0,0,0,blue],
+                  [0,0,0,0,blue]
                 ]
         
         for item in walls:
             wall=Wall(item[0],item[1],item[2],item[3],item[4])
             self.wall_list.add(wall)
 
-class Room2(Room):
-    def __init__(self):
-        Room.__init__(self)
-
-        walls = [ [590,700,1,10,blue],
-                  [50,600,200,100,blue],
-                  [600,750,100,100,blue],
-                  #[x,x,x,x,color],
-                  #[x,x,x,x,color]
-                ]
-        
-        for item in walls:
-            wall=Wall(item[0],item[1],item[2],item[3],item[4])
-            self.wall_list.add(wall)
 
 
 

@@ -4,25 +4,28 @@ import pygame
 from pygame.locals import *
 #import 1.utility
 #import sprites
-from ASprites import Wall, Player, Room, Room1, Room2
+from ASprites import Wall, Player, Room, Room1
 
 black = (0,0,0)
 white = (255,255,255)
 blue = (0,0,255)
 
 #//
+SCREEN_WIDTH  = 1000
+SCREEN_HEIGHT = 700
 
 pygame.init()
 
-screen = pygame.display.set_mode([900, 700])
+size = [SCREEN_WIDTH, SCREEN_HEIGHT]
+screen = pygame.display.set_mode(size)
 
-pygame.display.set_caption('test')
+pygame.display.set_caption('DA game')
 
 #background = pygame.Surface(screen.get_size())
-
+player = Player()
 #background.fill(black)
 
-player = Player(50, 50)
+#player = Player(50, 50)
 movingsprite = pygame.sprite.Group()
 movingsprite.add(player)
 
@@ -65,7 +68,7 @@ while not done:
             elif event.key == pygame.K_DOWN:
                 player.changespeed(0,-5)
         
-        player.move(current_room.wall_list)
+        player.update(current_room.wall_list)
 
         if player.rect.x < -15:
             if current_room_no == 0:
