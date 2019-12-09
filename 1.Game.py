@@ -4,45 +4,41 @@ import pygame
 from pygame.locals import *
 #import 1.utility
 #import sprites
-from ASprites import Wall, Player
+from ASprites import Wall, Player, Room, Room1, Room2
 
 black = (0,0,0)
 white = (255,255,255)
 blue = (0,0,255)
 
 #//
-score = 0
 
 pygame.init()
 
-screen = pygame.display.set_mode([800, 600])
+screen = pygame.display.set_mode([900, 700])
 
 pygame.display.set_caption('test')
 
-background = pygame.Surface(screen.get_size())
+#background = pygame.Surface(screen.get_size())
 
-background.fill(black)
+#background.fill(black)
 
 player = Player(50, 50)
-all_sprite_list = pygame.sprite.Group()
-all_sprite_list.add(player)
+movingsprite = pygame.sprite.Group()
+movingsprite.add(player)
 
-wall_list = pygame.sprite.Group()
+rooms = []
 
-wall = Wall(0,0,10,600)
-wall_list.add(wall)
-all_sprite_list.add(wall)
+room = Room1()
+rooms.append(room)
 
-wall = Wall(10,0,790,10)
-wall_list.add(wall)
-all_sprite_list.add(wall)
+room = Room2()
+rooms.append(room)
 
-wall = Wall(10,200,100,10)
-wall_list.add(wall)
-all_sprite_list.add(wall)
-
+current_room_no = 0
+current_room = rooms[current_room_no]
 
 clock = pygame.time.Clock()
+score = 0
 
 done = False
 
@@ -53,29 +49,51 @@ while not done:
         
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT:
-                player.changespeed(-3,0)
+                player.changespeed(-5,0)
             elif event.key == pygame.K_RIGHT:
-                player.changespeed(3,0)
+                player.changespeed(5,0)
             elif event.key == pygame.K_UP:
-                player.changespeed(0,-3)
+                player.changespeed(0,-5)
             elif event.key == pygame.K_DOWN:
-                player.changespeed(0,3)
+                player.changespeed(0,5)
 
         
         elif event.type == pygame.KEYUP:
             if event.key == pygame.K_LEFT:
-                player.changespeed(3,0)
+                player.changespeed(5,0)
             elif event.key == pygame.K_RIGHT:
-                player.changespeed(-3,0)
+                player.changespeed(-5,0)
             elif event.key == pygame.K_UP:
-                player.changespeed(0,3)
+                player.changespeed(0,5)
             elif event.key == pygame.K_DOWN:
-                player.changespeed(0,-3)
-    player.update(wall_list)
+                player.changespeed(0,-5)
+        
+        player.move(current_room.wall_list)
+
+        if player.rect.x < -15:
+            if current_room_no == 0:
+                current_room_no = 1
+                current_room = rooms[current_room_no]
+                player.rect.x = 790
+            elif current_room_no == 1:
+                current_room_no = 0
+                current_room = rooms[current_room_no]
+                player.rect.x = 790
+    
+        if player.rect.x > 801:
+            if current_room_no == 0:
+                current_room_no = 1
+                current_room = rooms[current_room_no]
+                player.rect.x = 0
+            elif current_room_no == 1:
+                current_room_no == 1
+                current_room_no = 0
+                current_room = rooms[current_room_no]
 
     screen.fill(black)
 
-    all_sprite_list.draw(screen)
+    movingsprite.draw(screen)
+    current_room.wall_list.draw(screen)
 
     pygame.display.flip()
 
