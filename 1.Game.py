@@ -31,6 +31,8 @@ rooms = []
 room = Room1()
 rooms.append(room)
 
+current_room_no = 0
+current_room = rooms[current_room_no]
 
 clock = pygame.time.Clock()
 score = 0
@@ -67,21 +69,21 @@ while not done:
 
         if player.rect.x < -15:
             if current_room_no == 0:
-                current_room_no = 1
+                current_room_no = 0
                 current_room = rooms[current_room_no]
-                player.rect.x = 790
+                player.rect.x = 890
             elif current_room_no == 0:
-                current_room_no = 1
+                current_room_no = 0
                 current_room = rooms[current_room_no]
-                player.rect.x = 790
+                player.rect.x = 890
     
-        if player.rect.x > 801:
+        if player.rect.x > 901:
             if current_room_no == 0:
-                current_room_no = 1
+                current_room_no = 0
                 current_room = rooms[current_room_no]
                 player.rect.x = 0
             elif current_room_no == 0:
-                current_room_no = 1
+                current_room_no = 0
                 current_room = rooms[current_room_no]
 
     screen.fill(black)
