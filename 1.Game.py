@@ -10,6 +10,7 @@ black = (0,0,0)
 white = (255,255,255)
 blue = (0,0,255)
 
+
 #//
 SCREEN_WIDTH  = 1000
 SCREEN_HEIGHT = 700
@@ -22,7 +23,7 @@ screen = pygame.display.set_mode(size)
 pygame.display.set_caption('DA game')
 
 #background = pygame.Surface(screen.get_size())
-player = Player()
+
 #background.fill(black)
 
 #player = Player(50, 50)
@@ -37,8 +38,10 @@ rooms.append(room)
 current_room_no = 0
 current_room = rooms[current_room_no]
 
+player = Player(current_room)
+
 player.rect.x = 340
-player.rect.y = SCREEN_HEIGHT - player.rect.hegiht
+player.rect.y = SCREEN_HEIGHT - player.rect.height
 movingsprite = pygame.sprite.Group()
 movingsprite.add(player)
 
@@ -48,27 +51,34 @@ score = 0
 done = False
 
 while not done:
+    screen.fill(black)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             done = True
 
-        if event.type == pygame-KEYDOWN:
-            if event.key == pygame.K_LEFT:
+        if event.type == KEYDOWN:
+            if event.key == K_LEFT:
                 player.go_left()
-            if event.key == pygame.K_RIGHT:
+            if event.key == K_RIGHT:
                 player.go_right()
-            if event.key == pygame.K_UP:
+            if event.key == K_UP:
                 player.jump()
 
-        if event.type == pygame.KEYUP:
-            if event.key == pygame.K_LEFT and player.change_x < 0:
+        if event.type == KEYUP:
+            if event.key == K_LEFT and player.change_x < 0:
                 player.stop()
-            if event.key == pygame.K_RIGHT and player.change_x > 0:
+            if event.key == K_RIGHT and player.change_x > 0:
                 player.stop()
+
+        if event.type == KEYDOWN:
+            if event.key == K_UP and player.change_y < 0:
+                player.stop()
+
+
 
     movingsprite.update()
         
-        if player.rect.x < -15:
+    if player.rect.x < -15:
             if current_room_no == 0:
                 current_room_no = 0
                 current_room = rooms[current_room_no]
@@ -78,7 +88,7 @@ while not done:
                 current_room = rooms[current_room_no]
                 player.rect.x = 890
     
-        if player.rect.x > 901:
+    if player.rect.x > 901:
             if current_room_no == 0:
                 current_room_no = 0
                 current_room = rooms[current_room_no]
@@ -87,9 +97,10 @@ while not done:
                 current_room_no = 0
                 current_room = rooms[current_room_no]
 
-    screen.fill(black)
+    
 
     movingsprite.draw(screen)
+    #movingsprite.update()
     current_room.wall_list.draw(screen)
 
     pygame.display.flip()

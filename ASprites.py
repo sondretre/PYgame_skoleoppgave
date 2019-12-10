@@ -1,7 +1,8 @@
 #endre til class fill
 
 import pygame
-
+SCREEN_WIDTH  = 1000
+SCREEN_HEIGHT = 700
 black = (0,0,0)
 white = (255,255,255)
 blue = (0,150,0)
@@ -22,8 +23,8 @@ class Player(pygame.sprite.Sprite):
     change_x = 0
     change_y = 0
 
-    def __init__(self):
-
+    def __init__(self, current_room):
+        self.current_room = current_room
         pygame.sprite.Sprite.__init__(self)
         
         width = 40
@@ -37,10 +38,10 @@ class Player(pygame.sprite.Sprite):
 
         self.calc_grav()
 
-        self.rect.x +=self.change_x
+        self.rect.x += self.change_x
         pos = self.rect.x
 
-        block_hit_list = pygame.sprite.spritecollide(self, wall, False)
+        block_hit_list = pygame.sprite.spritecollide(self, self.current_room.wall_list , False)
         for block in block_hit_list:
 
             if self.change_x > 0:
@@ -50,7 +51,7 @@ class Player(pygame.sprite.Sprite):
 
             self.rect.y += self.change_y
             
-        block_hit_list = pygame.sprite.spritecollide(self, walls, False)
+        block_hit_list = pygame.sprite.spritecollide(self, self.current_room.wall_list, False)
         for block in block_hit_list:
 
             if self.change_y > 0:
@@ -64,17 +65,17 @@ class Player(pygame.sprite.Sprite):
         if self.change_y == 0:
             self.change_y = 1
         else:
-            self.change_y += .35
+            self.change_y += 0.35
 
-        if self.rect.y >= SCREEN_HEIGHT - self.rect.height and seld.change_y >= 0:
+        if self.rect.y >= SCREEN_HEIGHT - self.rect.height and self.change_y >= 0:
             self.rect.y = SCREEN_HEIGHT - self.rect.height
 
     def jump(self):
 
         self.rect.y += 2
-        wall_hit_list = pygame.sprite.spritecollide(self, walls, False)
+        wall_hit_list = pygame.sprite.spritecollide(self, self.current_room.wall_list, False)
         self.rect.y -= 2
-
+        
         if len(wall_hit_list) > 0 or self.rect.bottom >= SCREEN_HEIGHT:
             self.change_y = -10
 
@@ -134,7 +135,7 @@ class Room1(Room):
         Room.__init__(self)
         # Liste over vegger: x,y,lengde, høgde, farge
         walls = [ [0,690,1000,10,blue],
-                  [50,0,0,0,blue],
+                  [50,10,10,10,blue],
                   [0,0,0,0,blue],
                   [0,0,0,0,blue],
                   [0,0,0,10,blue],
